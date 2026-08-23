@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Crop Recommendation</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef7e9;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px #0001;
+        }
+
+        h1 {
+            text-align: center;
+            color: #28783c;
+        }
+
+        p {
+            text-align: center;
+            color: #555;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            background: #28783c;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e5c2e;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e1f5e5;
+            color: #205c2d;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .error {
+            color: #b91c1c;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🌱 Smart Crop Recommendation</h1>
+        <p>Enter soil and weather details to predict a suitable crop.</p>
+
+        <form method="POST">
+            <div class="grid">
+                <div>
+                    <label for="N">Nitrogen (N)</label>
+                    <input type="number" step="any" name="N" id="N" required>
+                </div>
+
+                <div>
+                    <label for="P">Phosphorus (P)</label>
+                    <input type="number" step="any" name="P" id="P" required>
+                </div>
+
+                <div>
+                    <label for="K">Potassium (K)</label>
+                    <input type="number" step="any" name="K" id="K" required>
+                </div>
+
+                <div>
+                    <label for="temperature">Temperature (°C)</label>
+                    <input type="number" step="any" name="temperature" id="temperature" required>
+                </div>
+
+                <div>
+                    <label for="humidity">Humidity (%)</label>
+                    <input type="number" step="any" name="humidity" id="humidity" required>
+                </div>
+
+                <div>
+                    <label for="ph">Soil pH</label>
+                    <input type="number" step="any" name="ph" id="ph" required>
+                </div>
+
+                <div>
+                    <label for="rainfall">Rainfall (mm)</label>
+                    <input type="number" step="any" name="rainfall" id="rainfall" required>
+                </div>
+            </div>
+
+            <button type="submit">Recommend Crop</button>
+        </form>
+
+        {% if prediction %}
+            <div class="result">
+                <h2>Recommended Crop: {{ prediction | title }}</h2>
+                <p>The machine learning model has generated this prediction.</p>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
